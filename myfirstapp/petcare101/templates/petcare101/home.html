@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Petcare101</title>
+
+    {% load static %}
+    
+    <!-- Link to the global styles.css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Link to the home-specific styles.css -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Welcome to Petcare101</h1>
+            <p>Your one-stop destination for all things pet care!</p>
+        </div>
+    </header>
+
+    <!-- Success/Error Messages -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Featured Articles Section -->
+    <section class="featured-articles">
+        <div class="container">
+            <h2>Featured Articles</h2>
+            <div class="articles-list">
+                {% for article in articles %}
+                    <div class="article-card">
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.content|truncatewords:20 }}</p>
+                        <a href="{% url 'article_detail' article.id %}" class="read-more">Read More</a>
+                    </div>
+                {% empty %}
+                    <p>No articles available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2>About Petcare101</h2>
+            <p>At Petcare101, we provide expert advice and articles to help you take care of your pets. Whether you have a dog, cat, or any other pet, we aim to provide useful information for a happy, healthy life together!</p>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <div class="container">
+            <h3>Want to learn more?</h3>
+            <p>Join our community of pet lovers and start exploring articles, tips, and advice.</p>
+            <a href="{% url 'add_article' %}" class="cta-button">Add an Article</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Petcare101. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
